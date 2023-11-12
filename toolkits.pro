@@ -9,17 +9,17 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    main.cpp \
-    mainwindow.cpp \
-    wggeneratebugfolder.cpp
+    src/main.cpp \
+    src/mainwindow.cpp \
+    src/wggeneratebugfolder.cpp \
 
 HEADERS += \
-    mainwindow.h \
-    wggeneratebugfolder.h
+    src/mainwindow.h \
+    src/wggeneratebugfolder.h \
 
 FORMS += \
-    mainwindow.ui \
-    wggeneratebugfolder.ui
+    src/mainwindow.ui \
+    src/wggeneratebugfolder.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
