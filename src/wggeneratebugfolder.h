@@ -15,15 +15,20 @@ public:
     explicit WgGenerateBugFolder(QWidget *parent = nullptr);
     ~WgGenerateBugFolder();
 
+
+
 private:
     Ui::WgGenerateBugFolder *ui;
+    QString m_sClassName;
     QString m_sSrcPath;
     QString m_sStatementPath;
     QString m_sDirPath;
     QVector<QString> *m_pClassNameVector;
+    bool m_bIsSaveUI;
 
     bool CheckFolder(QString path);
-    bool m_bIsSaveUI;
+    void ErrorMessage(const char *message);
+    void DataCheck();
 
 private slots:
     void BtnSrcPathClicked();
@@ -31,15 +36,11 @@ private slots:
     void BtnDirPathClicked();
     void BtnStartClicked();
 
-    void on_checkBox_stateChanged(int arg1);
+    void CkbIsSaveUI(int arg1);
 
     // QWidget interface
 protected:
 
-
-    // QObject interface
-public:
-    bool eventFilter(QObject *watched, QEvent *event);
 };
 
 #endif // WGGENERATEBUGFOLDER_H

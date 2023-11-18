@@ -20,6 +20,7 @@ WgGenerateBugFolder::WgGenerateBugFolder(QWidget *parent) :
     connect(ui->btnStatementPath, SIGNAL(clicked()),this, SLOT(BtnStatementClicked()));
     connect(ui->btnDirPath, SIGNAL(clicked()),this, SLOT(BtnDirPathClicked()));
     connect(ui->btnStart, SIGNAL(clicked()),this, SLOT(BtnDirPathClicked()));
+    connect(ui->checkBox, SIGNAL(stateChanged(int)), this, SLOT(CkbIsSaveUI(int)));
 }
 
 WgGenerateBugFolder::~WgGenerateBugFolder()
@@ -53,23 +54,48 @@ void WgGenerateBugFolder::BtnDirPathClicked()
     ui->leDirPath->setText(m_sDirPath);
 }
 
+void WgGenerateBugFolder::ErrorMessage(const char *message)
+{
+    QMessageBox::critical(this, "错误", message);
+}
+
+void WgGenerateBugFolder::DataCheck()
+{
+    if(m_sClassName == "")
+    {
+        ErrorMessage("类名不能为空！！！");
+    }
+    if(m_sSrcPath == "")
+    {
+        ErrorMessage("源文件目录不能为空！！！");
+    }
+    if(m_sDirPath == "")
+    {
+        ErrorMessage("目标路径不能为空！！！");
+    }
+    if(m_bIsSaveUI == true && m_sStatementPath == "")
+    {
+        ErrorMessage("说明文档路径不能为空！！！");
+    }
+}
+
 void WgGenerateBugFolder::BtnStartClicked()
 {
     if(CheckFolder(m_sSrcPath) == false)
     {
-        QMessageBox::critical(this, "错误", "源码目录错误或为空！！！");
+        ErrorMessage("源码目录错误或为空！！！");
     }
     else if(CheckFolder(m_sStatementPath) == false)
     {
-        QMessageBox::critical(this, "错误", "说明文档目录错误或为空！！！");
+        ErrorMessage("说明文档目录错误或为空！！！");
     }
     else if(CheckFolder(m_sDirPath) == false)
     {
-        QMessageBox::critical(this, "错误", "目标目录错误或为空！！！");
+        ErrorMessage("目标目录错误或为空！！！");
     }
 }
 
-void WgGenerateBugFolder::on_checkBox_stateChanged(int arg1)
+void WgGenerateBugFolder::CkbIsSaveUI(int arg1)
 {
     m_bIsSaveUI = arg1 == 0?false:true;
     qDebug()<<m_bIsSaveUI<<endl;
@@ -79,17 +105,4 @@ bool WgGenerateBugFolder::CheckFolder(QString path)
 {
     QFileInfo folder(path);
     return folder.exists();
-}
-
-bool WgGenerateBugFolder::eventFilter(QObject *watched, QEvent *event)
-{
-    if(event->type() == QEvent::FocusOut)
-    {
-        if(watched == ui->leClassName)
-        {
-            qDebug()<<"类名失去焦点";
-            return true;
-        }
-    }
-    return QObject::eventFilter(watched, event);
 }
