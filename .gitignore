@@ -1,8 +1,9 @@
 .git
 .qtc_clangd
-bin
-moc/**
-obj/**
-ui/**
+bin/*
+moc/*
+obj/*
+ui/*
+build/*
 !build/*.pro
 !build/*.pro.user

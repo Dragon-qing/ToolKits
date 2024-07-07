@@ -1,6 +1,7 @@
 #include "QMessageBox"
 #include "QDebug"
 #include "QFileDialog"
+#include "QPushButton"
 
 #include "wggeneratebugfolder.h"
 #include "ui_wggeneratebugfolder.h"

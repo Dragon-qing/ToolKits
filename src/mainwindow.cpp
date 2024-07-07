@@ -1,5 +1,7 @@
 #include <QSize>
 
+#include "common.h"
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -8,12 +10,10 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    m_pBugFolder = new WgGenerateBugFolder(ui->frame);
-    QSize wgSize = m_pBugFolder->size();
-
+    m_pBugFolder = new WgGenerateBugFolder(this);
+    ui->verticalLayout_2->addWidget(m_pBugFolder);
     // 重置窗口大小
-    resize(wgSize.width(),wgSize.height()+22);
+    resize(WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
 MainWindow::~MainWindow()
